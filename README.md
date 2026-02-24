@@ -8,12 +8,12 @@ This project implements a Retrieval-Augmented Generation (RAG) chatbot that uses
    Make sure you have Python installed, then run the following command to install the required libraries:
    ```bash
    pip install -r requirements.txt
-Download the NLP Model
+2. **Download the NLP Model**
 The chatbot uses spaCy for grammatical parsing. Download the English model by running:
 
     ```bash
     python -m spacy download en_core_web_sm
-Run the Application
+3. **Run the Application**
 Start the Streamlit interface:
 
     ```bash
@@ -27,19 +27,19 @@ I live in Goa
 
 I have a dog
 
-My dog name is Gon
+My dog name is Bruno
 
-Gon loves pizza
+bruno loves ball
 
-Emma studies biology
+I study biology
 
-Emma is a student
+I am a student
 
-Biology is a science
+I am 30 years old
 
-Microsoft employs Emma
+I work at Google
 
-Microsoft created Windows
+Google created Gemini
 
 ## Example Queries (RAG Retrieval)
 Ask these questions (ensuring you include the ?) to test the chatbot's memory:
@@ -50,9 +50,9 @@ Where do I live?
 
 What do I have?
 
-What does Gon love?
+What does Bruno love?
 
-Who employs Emma?
+Who created Gemini?
 
 ## Graph Visualization
 See the attached screenshot graph_screenshot.png in this repository to view the live NetworkX multi-user visualization generated within the Streamlit UI
