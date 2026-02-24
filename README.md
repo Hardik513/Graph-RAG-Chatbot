@@ -33,7 +33,7 @@ bruno loves ball
 
 I study biology
 
-I am a student
+I am a student at JSS
 
 I am 30 years old
 
@@ -55,6 +55,8 @@ What do I have?
 What does Bruno love?
 
 Who created Gemini?
+
+Where I study?
 
 ## Graph Visualization
 See the attached screenshot graph_screenshot.png in this repository to view the live NetworkX multi-user visualization generated within the Streamlit UI
