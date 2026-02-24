@@ -44,6 +44,8 @@ Google created Gemini
 ## Example Queries (RAG Retrieval)
 Ask these questions (ensuring you include the ?) to test the chatbot's memory:
 
+What is my name?
+
 Who am I?
 
 Where do I live?
