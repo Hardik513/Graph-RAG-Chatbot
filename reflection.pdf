@@ -1,0 +1,11 @@
+System Reflection
+
+This Graph RAG chatbot utilizes a hybrid pipeline: spaCy for deterministic grammatical dependency parsing to build the Knowledge Graph, and a local Flan-T5 transformer for natural language generation.
+
+Pipeline Strengths and Weaknesses
+The extraction pipeline handles simple, declarative Subject-Verb-Object (SVO) statements exceptionally well (e.g., "Alex loves pizza"). By splitting sentences at the root verb, it accurately captures relationships like "I live in Goa" or "I am a student" without getting tripped up by complex prepositions. Additionally, the pronoun normalization ensures that "I" or "my" maps correctly to the user's specific node, successfully supporting a clean, multi-user memory architecture.
+
+However, the extraction breaks down with complex, compound sentences or conversational slang. Because the system relies on strict grammatical roots to build the graph, it struggles with coreference resolution across multiple turns. For example, if a user says, "I have a dog," and subsequently says, "He likes bones," the system creates a disconnected "He" node rather than intelligently linking the trait to the existing "dog" node.
+
+Limitations of Graph Memory
+A primary limitation of using a simple directed graph (NetworkX) for memory is the difficulty in representing temporal data, certainty, or n-ary relationships. For example, if a user states "I lived in Goa in 2022", a simple node-edge-node triplet cannot easily store the timestamp without making the graph unnecessarily complex. Furthermore, this basic graph memory lacks native conflict resolution; stating "I live in Meerut" after "I live in Goa" simply adds a new edge, which can feed contradictory context to the LLM during the RAG retrieval phase.
