@@ -13,6 +13,7 @@ def load_spacy():
 @st.cache_resource
 def load_transformer_model():
     from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+    # Bypassing the pipeline wrapper entirely to prevent task inference errors
     tokenizer = AutoTokenizer.from_pretrained("google/flan-t5-base")
     model = AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-base")
     return tokenizer, model
@@ -37,7 +38,7 @@ if st.sidebar.button("🗑️ Clear Memory"):
     st.session_state.chat_history[current_user] = []
     st.rerun()
 
-# Core Functions
+# Core Functions 
 
 def extract_triplets_with_spacy_robust(text, current_user):
     """Ultra-robust extraction that splits sentences perfectly at the root verb."""
@@ -101,7 +102,7 @@ Short Answer: """
     outputs = llm_model.generate(**inputs, max_new_tokens=50)
     return llm_tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-# Main UI 
+# Main UI
 st.title("🧠 Graph RAG Chatbot")
 st.write(f"Currently chatting as: **{current_user}**")
 
@@ -109,16 +110,10 @@ st.write(f"Currently chatting as: **{current_user}**")
 with st.expander("👁️ View Live Knowledge Graph for " + current_user):
     graph = st.session_state.graphs[current_user]
     if len(graph.nodes) > 0:
-        # 1. Made the canvas slightly larger (10x8 instead of 8x6)
-        fig, ax = plt.subplots(figsize=(10, 8))
-        
-        # 2. ADDED 'k' (distance between nodes) and 'iterations' to spread them out!
-        pos = nx.spring_layout(graph, k=0.8, iterations=50, seed=42)
-        
-        # 3. Made the nodes slightly larger to fit text better
+        fig, ax = plt.subplots(figsize=(8, 6))
+        pos = nx.spring_layout(graph, seed=42)
         nx.draw(graph, pos, with_labels=True, node_color='lightblue', edge_color='gray', 
-                node_size=2500, font_size=9, font_weight='bold', ax=ax)
-        
+                node_size=2000, font_size=9, font_weight='bold', ax=ax)
         edge_labels = nx.get_edge_attributes(graph, 'relation')
         nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels, font_size=8)
         st.pyplot(fig)
@@ -173,4 +168,3 @@ if user_input:
             st.markdown(response)
             st.session_state.chat_history[current_user].append({"role": "assistant", "content": response})
             st.rerun()
-
