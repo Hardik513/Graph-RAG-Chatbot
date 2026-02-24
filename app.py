@@ -107,23 +107,25 @@ st.title("🧠 Graph RAG Chatbot")
 st.write(f"Currently chatting as: **{current_user}**")
 
 # Display Live Graph Visualization
+# Display Live Graph Visualization
 with st.expander("👁️ View Live Knowledge Graph for " + current_user):
     graph = st.session_state.graphs[current_user]
     if len(graph.nodes) > 0:
-        fig, ax = plt.subplots(figsize=(8, 6))
-        pos = nx.spring_layout(graph, seed=42)
+        # 1. Made the canvas even wider (12x8) to give maximum breathing room
+        fig, ax = plt.subplots(figsize=(12, 8))
+        
+        # 2. Cranked 'k' up to 1.5 (super strong repulsion) and iterations to 100
+        # 3. REMOVED 'seed=42' so the graph can freely shuffle itself every time you add a fact!
+        pos = nx.spring_layout(graph, k=1.5, iterations=100)
+        
         nx.draw(graph, pos, with_labels=True, node_color='lightblue', edge_color='gray', 
-                node_size=2000, font_size=9, font_weight='bold', ax=ax)
+                node_size=3000, font_size=9, font_weight='bold', ax=ax)
+        
         edge_labels = nx.get_edge_attributes(graph, 'relation')
         nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels, font_size=8)
         st.pyplot(fig)
     else:
         st.write("Graph is currently empty. Add some facts!")
-
-# Render Chat History
-for msg in st.session_state.chat_history[current_user]:
-    with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
 
 # Chat Input Area
 user_input = st.chat_input("Tell me a fact, or ask me a question (ending with ?)")
@@ -168,3 +170,4 @@ if user_input:
             st.markdown(response)
             st.session_state.chat_history[current_user].append({"role": "assistant", "content": response})
             st.rerun()
+
