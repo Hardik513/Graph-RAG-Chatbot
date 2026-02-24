@@ -46,7 +46,7 @@ Ask these questions (ensuring you include the ?) to test the chatbot's memory:
 
 What is my name?
 
-Who am I?
+ What I am?
 
 Where do I live?
 
