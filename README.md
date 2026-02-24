@@ -6,7 +6,7 @@ This project implements a Retrieval-Augmented Generation (RAG) chatbot that uses
 
 1. **Install Dependencies**
    Make sure you have Python installed, then run the following command to install the required libraries:
-      ```bash
+   ```bash
    pip install -r requirements.txt
 Download the NLP Model
 The chatbot uses spaCy for grammatical parsing. Download the English model by running:
@@ -16,5 +16,46 @@ The chatbot uses spaCy for grammatical parsing. Download the English model by ru
 Run the Application
 Start the Streamlit interface:
 
-```bash
-streamlit run app.py
+    ```bash
+      streamlit run app.py
+## Example Inputs (Graph Updates)
+Type these statements into the chat (without question marks) to populate the Knowledge Graph:
+
+I am Alex
+
+I live in Goa
+
+I have a dog
+
+My dog name is Gon
+
+Gon loves pizza
+
+Emma studies biology
+
+Emma is a student
+
+Biology is a science
+
+Microsoft employs Emma
+
+Microsoft created Windows
+
+## Example Queries (RAG Retrieval)
+Ask these questions (ensuring you include the ?) to test the chatbot's memory:
+
+Who am I?
+
+Where do I live?
+
+What do I have?
+
+What does Gon love?
+
+Who employs Emma?
+
+## Graph Visualization
+See the attached screenshot graph_screenshot.png in this repository to view the live NetworkX multi-user visualization generated within the Streamlit UI
+
+
+
